@@ -13,25 +13,25 @@
 
     \Function{alloc}{p, q $\in \mathcal{I}$}
     
-      \State $depth := 0$;
+      \State \textbf{let} $depth := 0$; $interval := 0$;
 
       \While{$(interval < 1)$} \Comment{Not enough for 1 insert}
         \State $depth++$;
         \State $interval := prefix(q,depth) - prefix(p,depth) -1$;
       \EndWhile
       
-      \State \textbf{let} $step:=min(boundary,interval)$; \Comment{Process the
-        maximum step to stay between $p$ and $q$}
+      \State \textbf{let} $ste p:= min(boundary,interval)$; \Comment{Process 
+        the maximum step to stay between $p$ and $q$}
 
       \If{$not(\mathcal{S}.exist(depth))$} \Comment{add the new entry}
         \State \textbf{let} $rand := RandBool()$;
         \State  $\mathcal{S}.set(depth, rand)$;
       \EndIf
       \If{$\mathcal{S}.get(depth)$} \Comment{$boundary+$}
-        \State \textbf{let} $addVal$:=$RandInt(0,step)+1$;
+        \State \textbf{let} $addVal := RandInt(0,step)+1$;
         \State \textbf{let} $id := prefix(p,depth) + addVal$;
       \Else \Comment{$boundary-$}
-        \State \textbf{let} $subVal$:=$RandInt(0,step)+1$;
+        \State \textbf{let} $subVal := RandInt(0,step)+1$;
         \State \textbf{let} $id := prefix(q,depth) - subVal$;
       \EndIf
 
@@ -41,7 +41,7 @@
     \State
 
     \Function{prefix}{id $\in \mathcal{I}$, depth $\in \mathbb{N}^*$}
-      \State $idCopy := [\ ]$;
+      \State \textbf{let} $idCopy := [\ ]$;
       \For{($cpt:=1$ to $depth$)}
         \If{($cpt<id.size$)} \Comment{Copy the value}
           \State $idCopy = idCopy.append(id.at(cpt))$;

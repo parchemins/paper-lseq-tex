@@ -2,22 +2,22 @@
 \label{sec:relatedwork}
 
 Popular distributed collaborative editors such as Google
-Docs~\cite{nichols1995high} or Etherpad rely on Operational Transformation
-approach (OT)~\cite{sun1998operational,sun1998achieving}.  OT-based and
-CRDT-based distributed editors follow the same global scheme of optimistic
-replication i.e. generate operations without locking, broadcast to others
-replicates and re-execute. OT and CRDT mainly differs on their complexities:
+Docs~\cite{nichols1995high} rely on Operational Transformation approach
+(OT)~\cite{sun1998operational,sun1998achieving}.  OT-based and CRDT-based
+distributed editors follow the same global scheme of optimistic replication,
+i.e., generate operations without locking, broadcast to others replicates and
+re-execute. OT and CRDT mainly differ in their complexities:
 \begin{inparaenum}[(i)]
 \item OT-based editors have constant-time complexity at generation time and a
   complexity of $O(|H^{2}|)$ at re-execution time where $H$ is the log of
-  operations. Performances of OT are closely dependant of number of concurrent
+  operations. Performance of OT closely depend on the number of concurrent
   operations present in the system.
-\item LSEQ sequence CRDT has a complexity in $O(k)$ for generation time and
-  $O(k*log(n))$ at re-execution time where $n$ is the number of elements
+\item LSEQ sequence CRDT has a complexity of $O(k)$ for generation time and
+  $O(k*log(n))$ for re-execution time where $n$ is the number of elements
   presents in the document and $k$ is proportional to size of
   identifiers. Unlike OT, the state of the document mainly determines the CRDT
-  performances.  \NAME{} significantly improves performances of sequence CRDTs
-  by keeping $k$ small.
+  performance. \NAME{} significantly improves the performance of the sequence
+  CRDTs by keeping $k$ small.
 \end{inparaenum}
 
 The tombstone class of sequence CRDT includes WOOT~\cite{oster2006data},
@@ -44,9 +44,10 @@ reachable, but constrains the topology of the network and uses an expensive
 The variable-size identifiers class of CRDT includes
 Logoot~\cite{weiss2009logoot} and Treedoc~\cite{preguica2009commutative}. These
 CRDTs use growing identifiers to encode the total order among elements of the
-sequence. In the worst case, the size of identifiers is linear to the total
-number of insert operations on the document~\cite{ahmed2011evaluating}. Logoot
-and Treedoc~\cite{preguica2009commutative} have different allocation
+sequence. In the worst case, the size of identifiers is linear in the total
+number of insert operations done on the
+document~\cite{ahmed2011evaluating}. Logoot and
+Treedoc~\cite{preguica2009commutative} have different allocation
 strategies. Treedoc has two allocation strategies:
 \begin{inparaenum}[(i)]
 \item the first strategy allocates an identifier by directly appending a bit on
@@ -58,13 +59,13 @@ strategies. Treedoc has two allocation strategies:
 \end{inparaenum}
 
 Logoot's \emph{boundary} strategy and Treedoc's second strategy are very
-similar, both in their goal and their weaknesses. They assume an editing
+similar, both in their goals and their weaknesses. They assume an editing
 behaviour in the end, and therefore they become application dependent.
 Compared to Logoot and Treedoc, \NAME{} is adaptive and significantly enlarges
 the applicability of sequence CRDTs.
 
-In~\cite{ahmed2011evaluating}, they compared most sequence CRDTs and one OT on
+In~\cite{ahmed2011evaluating}, they compared most sequence CRDTs and one OT in
 an experimental setup. RGA and Logoot obtained best overall performances. In
-this paper, we completed experiment with more extreme cases and demonstrated
+this paper, we completed experiments with more extreme cases and demonstrated
 that \NAME{} outperforms Logoot.
 

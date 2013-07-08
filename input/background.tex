@@ -38,10 +38,10 @@ example, the operation $insert(a=10 \prec x \prec b=15)$ can be sent as
 $insert(x,12)$. This strategy does not require keeping tombstones, however it
 is easy to see that identifiers can grow quickly and significantly degrade the
 overall performance of the system. In the worst case, the system requires to
-rebalance identifiers implying the use of a consensus algorithm.
+re-balance identifiers implying the use of a consensus algorithm.
 
 In this paper, we focus on keeping the identifiers as small as possible hence
-avoiding any costly protocol to rebalance them. Definition~\ref{def:model}
+avoiding any costly protocol to re-balance them. Definition~\ref{def:model}
 states a document as a set of pairs $(elt, id)$ where $elt$ can be a character
 or a line and $id$ are unique immutable identifiers defined on the set of all
 possible identifiers $\mathcal{I}$. $\mathcal{I}$ has an order relation $<$
@@ -102,13 +102,13 @@ elements identified by $p$ and $q$:
 
 
 \begin{figure*}
-\centering
 \begin{subfigure}[t]{0.47\textwidth}
   \includegraphics[width=\textwidth]{img/compliant.eps}
   \caption{A page of 12k lines mostly edited at
     the end.}
   \label{im:posteonlyblue}
 \end{subfigure}
+\hfill
 \begin{subfigure}[t]{0.47\textwidth}
 \includegraphics[width=\textwidth]{img/motivating.eps}
 \caption{A page of 170 lines mostly edited at the beginning.}
@@ -116,7 +116,7 @@ elements identified by $p$ and $q$:
 \end{subfigure}
 \caption{Experiments made on a Wikipedia pages. The top figure shows the
   spectrum of the page (revision number of each line). The bottom figure shows
-  the bit-lenght of the identifier assigned to each line. The allocation
+  the bit-length of the identifier assigned to each line. The allocation
   strategy is $boundary$ from the Logoot approach.}
 \end{figure*}
 

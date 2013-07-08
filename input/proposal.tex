@@ -1,20 +1,20 @@
 \section{\NAME{} Allocation Function}
 \label{sec:proposal}
 
-\NAME{} applies a very simple strategy: each time we create a new depth in the
-tree between two identifiers $p$ and $q$, we double the base of this depth and
-we choose randomly a strategy among \emph{boundary+} or
+\NAME{} applies a very simple strategy: each time it creates a new level in the
+tree between two identifiers $p$ and $q$, it doubles the base of this depth and
+it randomly chooses a strategy among \emph{boundary+} and
 \emph{boundary--}. \emph{boundary+} allocates from $p$ plus a fixed boundary,
 \emph{boundary--} allocates from $q$ minus a fixed boundary. The boundary never
 changes whatever the depth of the tree.
 
 The following idea is the foundation of this approach: as it is complex to
 predict the editing behaviour, the principle is to sacrifice some depths of the
-tree with the insurance that the reward will compensate the loss.  In other
+tree with the certainty that the reward will compensate the loss.  In other
 words, if \NAME{} chooses the wrong strategy at a given depth, it will
 eventually choose the right one in the next depths. Since it doubles the base
-at each new depth, when the right strategy will be found, it will overwhelm the
-cost of lost depths.
+at each new depth, when the right strategy is found, it will overwhelm the
+cost of the lost depths.
 
 \subsection{Base Doubling}
 Logoot's~\cite{weiss2009logoot} underlying allocation strategy always uses the
@@ -23,16 +23,15 @@ it means that the arity is set to $base$. A high base value is not profitable
 if the number of insert operations in this part of the sequence is low. On the
 contrary, keeping a constant base value when the number of insert operations
 starts to be very high does not allow to fully benefit of the \emph{boundary}
-strategy. For instance, in Figure~\ref{im:posteonlyblue} the Wikipedia page has
-12k lines that justifies the usage of a large base unlike
-Figure~\ref{im:didyouknowonlyblue} with only 170 lines. Knowing the dilemma,
-the objective is to adapt the base according to the number of insertions in
-order to make a better reflection of the actual size of the document.  Since it
-is impossible to \emph{a priori} know the size of the document, the idea is to
-start with a small base due to the empty sequence, and then to double it when
-and where necessary, i.e. when the depth of identifiers increases.
-
-%\input{input/basealgo.tex}
+strategy. For instance, Figure~\ref{im:posteonlyblue} presents experimental
+results from a Wikipedia page that has 12k lines which justifies the usage of a
+large base unlike Figure~\ref{im:didyouknowonlyblue} with only 170
+lines. Knowing the dilemma, the objective is to adapt the base according to the
+number of insertions in order to make a better reflection of the actual size of
+the document.  Since it is impossible to know \emph{a priori} the size of the
+document, the idea is to start with a small base due to the empty sequence, and
+then to double it when and where necessary, i.e. when the depth of identifiers
+increases.
 
 Doubling the base at each depth implies an exponential growth of the number of
 available identifiers. Thus, the model corresponds to the exponential
@@ -42,28 +41,28 @@ depth $k$ can store up to $N_k=N_{k-1}+k*k!$ identifiers where $N_1=base$.  In
 other words, the arity of a node depends of its depth: a node has twice more
 children than its parent node, and the root has $base$ children.
 
-%%Algorithm~\ref{algo:doubledbase} computes the base at a given depth.
 Knowing this exponential tree model, the binary representation of the
 identifier is $\Sigma_{i=1}^{id.size} b*2^i$ where $b$ is the initial base
 (conveniently a power of 2). Practically, if the initial base is $2^4$ then,
 there are $2^{4+1}$ possibilities to choose an identifier at depth 1, $2^{4+2}$
 at depth 2, etc.
 
-The base doubling relies on the following assumption: it is the lack of space
-that triggers the growth of identifiers. Therefore, an inefficient allocation
+The base doubling relies on the following assumption: the lack of space
+triggers the growth of identifiers. Therefore, an inefficient allocation
 strategy will entail an excessive growth of the identifier size as the system
-doubles the base anyway and the lost depths are more and more costly.
+doubles the base frequently and the additional depths are more and more
+costly.
 
 \subsection{Allocation Strategies}
 
 \cite{weiss2009logoot} introduced two allocation strategies: \emph{boundary}
 and \emph{random}. In the experiments, the former outperforms the
-latter. Despite this, the \emph{boundary} strategy is heavily application
-dependent. If a user mainly performs insert operations in the end of the
+latter. However, the \emph{boundary} strategy is heavily application
+dependent. If a user mainly performs insert operations at the end of the
 document the allocation will perform well. However, front editing will cause a
 quick linear growth of the size of identifiers.
 
-In \NAME{}, we introduce the allocation strategy named
+With \NAME{}, we introduce the allocation strategy named
 \emph{boundary--}. Basically, this strategy is the opposite of the original
 \emph{boundary} strategy. In this paper, we rename \emph{boundary} to
 \emph{boundary+}. Let us consider an insert operation between two elements with
@@ -71,16 +70,26 @@ the identifiers $p$ and $q$. While the \emph{boundary+} strategy preferably
 allocates a position near the preceding identifier $p$, the \emph{boundary--}
 strategy allocates a position near the succeeding identifier $q$. Indeed,
 \emph{boundary--} starts from position $q$ and subtracts a boundary value
-instead of starting from position $p$ and add a boundary value. The arithmetic
-operation explains the names given to theses
+instead of starting from position $p$ and adding a boundary value. The
+arithmetic operation explains the names given to theses
 strategies. Figure~\ref{img:positionchoice} shows the results obtained by these
 two strategies with the same neighbours and random value. The left figure shows
 the \emph{boundary+} strategy which ends up with $[50.11]$ while the right
 figure shows the \emph{boundary--} strategy which ends up with $[50.89]$. They
-leave free space for future insertions of 88 identifiers in the end and in
-front respectively.
+leave free space for future insertions of 88 identifiers at the end and at the
+beginning respectively.
 
+\begin{figure}[h]
+\addtolength{\belowcaptionskip}{-10pt}
+\begin{center}
 \input{input/boundarypluschoice.tex}
+\caption{Choice of the digit part of identifiers in \emph{boundary+} (left) and
+  \emph{boundary-} (right). In both cases: constant base is set to $100$,
+  boundary value is set to $20$ and the random number is $11$. The results are
+  $[50.11]$ (\emph{boundary+}) and $[50.89]$ (\emph{boundary-}).}
+\label{img:positionchoice}
+\end{center}
+\end{figure}
 
 As expected, while the \emph{boundary+} algorithm handles the end editing,
 the \emph{boundary--} algorithm aims the front editing. They both have
@@ -91,67 +100,79 @@ just like \emph{boundary+}.
 
 Current variable-size sequence CRDTs rely on a unique strategy that is not
 versatile in the sense that it does not adapt to every editing behaviour. As it
-is impossible to \emph{a priori} know the editing behaviour and then, obtain
-the perfect solution to any sequences, \NAME{} randomly alternates between
+is impossible to know \emph{a priori} the editing behaviour and then, obtain
+the best strategy for every sequence, \NAME{} randomly alternates between
 \emph{boundary+} and \emph{boundary--}. Thus, when \NAME{} increases the
 identifier size, it has $1\over{2}$ chance to choose either \emph{boundary+} or
 \emph{boundary--}. This kind of choice implies lost depths but the main idea
 is: some depths are lost indeed, nevertheless it is acceptable if the reward
-compensate the losses.
+compensates the losses.
 
 \input{input/randomalgo.tex}
 
 Algorithm~\ref{algo:strategychoicerandom} details the allocation function
-\NAME{}. The depth-0 base value is $2^4$ and the \emph{boundary} to $10$. The
-collection $\mathcal{S}$ which stores the strategy choices starts empty. Three
-parts compose the algorithm.
+\NAME{}. The departure base is set to $2^4$ (depth-0) and the \emph{boundary}
+to $10$. The collection $\mathcal{S}$ stores the strategy choices. It starts
+empty. Three parts compose the algorithm.
 \begin{inparaenum}[(1)]
-  \item The first part processes the interval between the two identifiers $p$
-    and $q$ at each depth until it is sufficient for at least one
-    identifier. The step limits the interval where $alloc$ will allocate the
-    new identifier.
+\item The first part processes the interval between the two identifiers $p$ and
+  $q$ at each depth until one identifier at least can be inserted. The step
+  limits the interval where $alloc$ will allocate the new identifier.
   \item The second part determines the allocation strategy. If the function did
     not allocate any identifiers at this depth yet, it randomly chooses among
     \emph{boundary+} and \emph{boundary--}. Then it saves this choice for
     future decisions in $\mathcal{S}$.
   \item The final part of the algorithm constructs the new
-    identifier. Depending on the strategy, it randomizes a value using the
-    $step$ previously processed, and adds/subtracts this random value to the
-    $prefix$ of $p$/$q$ at the wanted depth. The $prefix$ function takes an
-    identifier $id$ in argument, and copies it until it reaches $depth$. If the
-    identifier size is smaller than the requested depth, the function appends a
-    zero to the copy for each missing depth. Each number in the sequence that
-    composes the identifier must be carefully encoded in the base depending on
-    the depth. Line~\ref{line:base} refers to $base(cpt)$. It is a very simple
+    identifier. Depending on the strategy, it draws a random value using the
+    $step$ previously processed, and adds/subtracts this value to the $prefix$
+    of $p$/$q$ at the wanted depth. The $prefix$ function takes an identifier
+    $id$ as argument, and copies it until it reaches $depth$. If the identifier
+    size is smaller than the requested depth, the function appends a zero to
+    the copy for each missing depth. Each number in the sequence that composes
+    the identifier must be carefully encoded in the base depending on the
+    depth. Line~\ref{line:base} refers to $base(cpt)$. It is a very simple
     function that computes the base value at a given depth ($cpt$). Thus,
     $0_{base(cpt)}$ means that the binary representation of $0$ uses
     $log_2(base(cpt))$ bits. Consequently, the add and subtract operations do
-    not require more efforts than regular arithmetic operations.
+    not require additional computation compared to regular arithmetic
+    operations.
 \end{inparaenum}
 
 Figure~\ref{fig:lseqtreeexample} illustrates the allocation strategy \NAME{} by
 showing its underlying tree model. First the empty sequence contains only two
 identifiers: the beginning ($[0]$) and the end ($[31]$). The sequence needs
 three additional identifiers between $[0]$ and $[31]$. First, \NAME{} randomly
-assigns an allocation strategy to the depth $1$: \emph{boundary+}. Then, it
+assigns \emph{boundary+} as allocation strategy to the depth-1. Then, it
 employs this strategy to allocate the three new identifiers ($[9]$, $[10]$,
-$[23]$). The randomness makes the first and second element very close in term
+$[23]$). The randomness makes the first and second elements very close in terms
 of identifier distance.  Unfortunately, the sequence requests three other
 identifiers between these two. Consequently, the depth has to grow to contain
-these new elements. Since \NAME{} did not use any strategy at this depth yet,
+these new elements. Since \NAME{} have not used any strategy at this depth yet,
 it must randomly choose one. Here, the choice is \emph{boundary--}. Therefore,
 this strategy allocates the three new identifiers. Furthermore, the underlying
 exponential tree model extends the number of possible identifiers to $64$. In
 this example, the resulting fresh identifiers are $[9.32]$, $[9.51]$ and
 $[9.60]$.
 
+\begin{figure}[h]
+\addtolength{\belowcaptionskip}{-10pt}
+\begin{center}
 \input{input/lseqtreeexample.tex}
+\caption{Underlying tree model of \NAME{} containing three identifiers at
+  depth-1. The randomness makes the first and second elements very close
+  regarding their identifiers ($[9]$ and $[10]$). The sequence requests three
+  other elements between these two. The chosen strategy is \emph{boundary--}
+  and since \NAME{} doubles the base at each depth, it allocates the fresh
+  identifiers closer of $[10.64]$.}
+\label{fig:lseqtreeexample}
+\end{center}
+\end{figure}
 
-This example highlights the major principle of \NAME{}.
+This example highlights the principle of \NAME{}.
 Figure~\ref{fig:lseqtreeexample} depicts an exponential tree model that clearly
 grows in arity over depths. It means more and more available identifiers when
 the tree grows. This design aims to adjust the depth of the tree to the number
 of insert operations. The next section aims to demonstrate experimentally that
 \NAME{} achieves sub-linear space complexity in extreme setups and also
-outperforms best CRDTs on real documents.
+outperforms state-of-the-art CRDTs on real documents.
 
