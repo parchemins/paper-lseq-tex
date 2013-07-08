@@ -4,7 +4,7 @@ In this paper, we presented an original allocation strategy for sequence CRDTs
 called \NAME{}. Compared to state of art, \NAME{} is adaptive, i.e., it handles
 unpredictable different editing behaviour and achieves sub-linear space
 complexity. Consequently \NAME{} does not require a costly protocol to garbage
-or rebalance identifiers, and is suitable for building better distributed
+or re-balance identifiers, and is suitable for building better distributed
 collaborative editors based on sequence CRDTs.
 
 Three components compose \NAME{}:
@@ -15,7 +15,7 @@ Three components compose \NAME{}:
 \end{inparaenum}
 
 Although each component cannot achieve sub-linear complexity, the conjunction
-of three components provides the expected behaviour. Experimentats show that
+of three components provides the expected behaviour. Experiments show that
 even if \NAME{} makes a bad strategy choice for one level in the tree, this
 choice will be overwhelmed by the gain obtained at next levels.
 
@@ -36,7 +36,7 @@ Future works include a formal demonstration of the empiric poly-logarithmic
 upper-bound in space complexity which implies a probabilistic study of the
 worst-case. The idea is to prove that its probability of happening is
 negligible. We also plan to study if concurrency affects LSEQ results, i.e., if
-each site makes different allocation choices concurently, does it impact
+each site makes different allocation choices concurrently, does it impact
 \NAME{} performances? Finally, we aim to study if using documents spectrum
 knowledge and machine-learning approaches can outperform random strategy
 choice.

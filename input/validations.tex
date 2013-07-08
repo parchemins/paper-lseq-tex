@@ -248,7 +248,7 @@ to~\cite{ahmed2011evaluating}, we compare \NAME{} with Logoot on Wikipedia
 documents as previously done in~\cite{DBLP:journals/tpds/WeissUM10}.
 
 We select Wikipedia documents with a large amount of lines, with front editing
-and end editing spectrums. We compare the following two setups:
+and end editing spectrum. We compare the following two setups:
 \begin{inparaenum}[(1)]
   \item Logoot (\textbf{L}) as~\cite{weiss2009logoot} originally described it,
   \item a composition of base doubling and Round-Robin strategy choice
@@ -287,8 +287,8 @@ and end editing spectrums. We compare the following two setups:
   corroborates the observations made in section~\ref{ssec:components}.
 
 \item[Reasons:] when \textbf{L} has to increase the depth of its identifiers,
-  it allocates a large additionnal space. Each new depth costs 64 bits. It
-  supposely handles $2^64$ more elements. However, the adding of depth happens
+  it allocates a large additional space. Each new depth costs 64 bits. It
+  supposedly handles $2^64$ more elements. However, the adding of depth happens
   very quickly when the editing behaviour is not exactly as expected. In
   particular, the spectrum of the document shows very erratic insertions at the
   end (in the references and external links part). On the other hand,
@@ -341,7 +341,7 @@ and end editing spectrums. We compare the following two setups:
   $bit/id$ for  \textbf{L} and \textbf{\NAME{}$^\approx$} respectively.}
 \label{im:didyouknow}
 \end{subfigure}
-\caption{The top spectrums reflect the editing behaviour performed on Wikipedia
+\caption{The top spectrum reflect the editing behaviour performed on Wikipedia
   pages. The bottom figures shows the identifier bit-length assigned to each
   line. Two configurations: Logoot (\textbf{L}) and Round-Robin with base
   doubling (\textbf{\NAME{}}$^\approx$).}
