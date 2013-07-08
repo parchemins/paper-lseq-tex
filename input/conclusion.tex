@@ -1,0 +1,42 @@
+\section{Conclusion}
+
+In this paper, we presented an original allocation strategy for sequence CRDTs
+called \NAME{}. Compared to state of art, \NAME{} is adaptive i.e. handle
+unpredictable different editing behaviour and achieves sub-linear space
+complexity. Consequently \NAME{} does not require a costly protocol to garbage
+or rebalance identifiers, and is suitable for building better distributed
+collaborative editors based on sequence CRDTs.
+
+Three components compose \NAME{}:
+\begin{inparaenum}[(1)]
+  \item a base doubling,
+  \item two allocation strategies \emph{boundary+} and \emph{boundary--},
+  \item a random strategy choice.
+\end{inparaenum}
+
+If each component cannot achieve sub-linear complexity, the conjunction of
+three components provides the expected behaviour. Experimentations show that
+even if \NAME{} makes a bad strategy choice for one level in the tree, this
+choice will be overwhelmed by the gain obtained at next levels.
+
+% Ifdoubled base, by making the
+% assumption of a good allocating strategy employed, permits to obtain a
+% sub-linear upper-bound for the size of identifiers generated. Also, the random
+% alternance of strategies ($boundary+/boundary-$) ensures that a good strategy
+% will eventually be employed. Individually, these components have huge
+% weaknesses but their composition overcomes their respective defects.
+
+The \NAME{} approach is generic enough to be included in other variable-size
+sequence CRDTs. Current experiments were done with a Logoot basis because it
+does not require tombstones and therefore is less dependent of the editing
+behaviour. But we believe that Treedoc's heuristic could be improved with this
+allocation strategy.
+
+Future works include a formal demonstration of the empiric poly-logarithmic
+upper-bound in space complexity which implies a probabilistic study of the
+worst-case. The idea is to prove that its probability of happening is
+negligible. We also plan to study if concurrency affects LSEQ results i.e. if
+each site makes different allocation choices concurently, does it impact
+\NAME{} performances? Finally, we aim to study if using documents spectrum
+knowledge and machine-learning approaches can outperform random strategy
+choice.

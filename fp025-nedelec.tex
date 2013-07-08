@@ -1,0 +1,136 @@
+
+\documentclass{sig-alternate-2013}
+
+\usepackage{url}
+\usepackage[english,french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{paralist}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyperref}                                  
+\usepackage{multirow}
+
+\usepackage{epstopdf}
+\usepackage{epsfig}
+
+%% Bibtex
+\usepackage[numbers]{natbib}
+
+\usepackage{tikz}
+\usetikzlibrary{plotmarks,shapes}
+
+\usepackage{subcaption}
+
+\newcommand{\TOFIX}[1]{\textcolor{orange}{#1}}
+\newcommand{\TODO}[1]{\textcolor{red}{#1}}
+\newcommand{\NAME}[0]{LSEQ}
+
+%paralist
+\renewcommand*\descriptionlabel[1]{%
+\scshape #1}
+\renewcommand\paradescriptionlabel[1]{%
+\scshape #1}
+
+
+
+\hypersetup{
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=black
+}
+
+\title{\NAME{}: an Adaptive Structure for Sequences in Distributed
+  Collaborative Editing}
+
+\numberofauthors{1}
+\author{
+     \alignauthor Brice Nedelec, Pascal Molli, Achour Mostefaoui, Emmanuel Desmontils\\
+     \affaddr{LINA, 2 rue de la Houssini\`ere}\\
+     \affaddr{BP92208, 44322 Nantes Cedex 03}\\
+     \email{first.last@univ-nantes.fr}
+}
+
+\newfont{\mycrnotice}{ptmr8t at 7pt}
+\newfont{\myconfname}{ptmri8t at 7pt}
+\let\crnotice\mycrnotice%
+\let\confname\myconfname%
+
+\permission{Permission to make digital or hard copies of all or part of this
+  work for personal or classroom use is granted without fee provided that
+  copies are not made or distributed for profit or commercial advantage and
+  that copies bear this notice and the full citation on the first
+  page. Copyrights for components of this work owned by others than ACM must be
+  honored. Abstracting with credit is permitted. To copy otherwise, or
+  republish, to post on servers or to redistribute to lists, requires prior
+  specific permission and/or a fee. Request permissions from
+  permissions@acm.org. (c) 2013 Association for Computing Machinery. ACM
+  acknowledges that this contribution was authored or co-authored by an
+  employee, contractor or affiliate of the national government of France. As
+  such, the government of France retains a nonexclusive, royalty-free right to
+  publish or reproduce this article, or to allow others to do so, for
+  Government purposes only.}
+
+  \conferenceinfo{DocEng'13,}{September 10--13, 2013,
+  Florence, Italy.}
+
+  \CopyrightYear{2013}
+
+  \crdata{978-1-4503-1789-4/13/09 \\
+    10.1145/2494266.2494278}
+
+\clubpenalty=10000 
+\widowpenalty = 10000
+
+\date{}
+
+\input{input/data/indexdata.tex}
+
+
+%%% % %% % %%% %% % %% % %%% % %%% % %% % %% % % %%%
+\begin{document}
+
+%% Allocate sufficient space to include the full copyright in bottom left part
+%% of the first page
+\makeatletter
+\renewcommand\@copyrightspace{
+\@float{copyrightbox}[b]
+\begin{center}
+\setlength{\unitlength}{1pc}
+\begin{picture}(20,9) %Space for copyright notice
+\put(0,-0.95){\crnotice{\@toappear}}
+\end{picture}
+\end{center}
+\end@float}
+\makeatother
+
+
+\newtheorem{Def}{Definition}
+
+\selectlanguage{english}
+
+  \maketitle
+
+  \input{input/abstract.tex}
+  \input{input/categorieskeywords.tex}
+  \input{input/introduction.tex}
+  \input{input/background.tex}
+  \input{input/proposal.tex}
+  \input{input/validations.tex}
+  \input{input/relatedWork.tex}
+  \input{input/conclusion.tex}
+
+  \input{input/acknowledgements.tex}
+
+%% Bibliographie
+  \bibliographystyle{plainnat}
+  \bibliography{bibliographie}
+  \addcontentsline{toc}{chapter}{Bibliographie} 
+  \clearpage
+  
+\end{document}
