@@ -21,19 +21,19 @@ The system is correct if:
   Transformation algorithms~\cite{sun1998achieving} used by Google Docs.
 \end{inparaenum}
 
-Let us illustrate this on an example. Assuming that all the replicas of a
-sequence of characters are the same and that the sequence looks like
-$...abcd...$. Considering that any site inserts the character $e$ between $b$
-and $c$ and considering that at the same moment, another site inserts a
-character $f$ between $b$ and $c$. It results in two relations $b \prec e \prec
-c$ and $b \prec f \prec c$. Once every site has delivered all the changes on
-their local replica, the union of these two relations merges into a partial
-relation without any precedence between $e$ and $f$. Consequently, two final
-states are possible $abefcd$ and $abfecd$. The role of the sequence CRDTs is to
-build a linear extension of the partial order formed by the intentions of all
-users to obtain a unique total order.
+Let us illustrate this with an example. Assume that all the replicas of a
+sequence of characters are equal and that the sequence looks like
+$...abcd...$. Consider that a site inserts the character $e$ between $b$ and
+$c$ and also consider that at the same moment, another site inserts a character
+$f$ between $b$ and $c$. It results in two relations $b \prec e \prec c$ and $b
+\prec f \prec c$. Once every site has delivered all the changes on their local
+replica, the union of these two relations merges into a partial relation
+without any precedence between $e$ and $f$. Consequently, two final states are
+possible $abefcd$ and $abfecd$. The role of the sequence CRDTs is to build a
+linear extension of the partial order formed by the intentions of all users to
+obtain a unique total order.
 
-Variable-size sequences CRDTs encode order relations into identifiers. For
+Variable-size sequence CRDTs encode order relations into identifiers. For
 example, the operation $insert(a=10 \prec x \prec b=15)$ can be sent as
 $insert(x,12)$. This strategy does not require keeping tombstones, however it
 is easy to see that identifiers can grow quickly and significantly degrade the
@@ -45,7 +45,7 @@ avoiding any costly protocol to rebalance them. Definition~\ref{def:model}
 states a document as a set of pairs $(elt, id)$ where $elt$ can be a character
 or a line and $id$ are unique immutable identifiers defined on the set of all
 possible identifiers $\mathcal{I}$. $\mathcal{I}$ has an order relation $<$
-which is dense and strictly totally ordered i.e. If $x,y \in \mathcal{I}$ and
+which is dense and strictly totally ordered i.e. if $x,y \in \mathcal{I}$ and
 $x < y$ then $\exists z \in \mathcal{I}, z\neq x, z\neq y, x < z <
 y$. $alloc(p,q)$ is the allocation strategy function that generates $id \in
 \mathcal{I}$. In Definition~\ref{def:id}, we state that an $id$ is a sequence
@@ -56,9 +56,9 @@ sequence is an efficient way to represent a dense order.
 A document is a set $\mathcal{D} = \{ (elt, id) \}$ with two operations:
 \begin{itemize}
   \item insert($p \in \mathcal{I}$, elt, $q \in
-    \mathcal{I}$):- $\mathcal{D}=\mathcal{D} \cup \{(elt,id_{elt})\}$ where
+    \mathcal{I}$):- $\mathcal{D} \cup \{(elt,id_{elt})\}$ \\ where
     $id_{elt}=alloc(p,q)$ with $p<id_{elt}<q$
-  \item delete($q \in \mathcal{I}$):- $\mathcal{D}=\mathcal{D}/\{(elt,q)\}$
+  \item delete($id \in \mathcal{I}$):- $\mathcal{D}/\{(elt,id)\}$
 \end{itemize}
 \label{def:model}
 \end{Def}
@@ -67,7 +67,7 @@ A document is a set $\mathcal{D} = \{ (elt, id) \}$ with two operations:
   A variable-size identifier $id$ is a sequence of numbers $id=[p_1.p_2\ldots
     p_n]$ which can designate a path in a tree~\footnote{Identifiers should
     include site ID to ensure the uniqueness property. However, for clarity
-    purposes and in order to stay focused on allocation strategy, we did not
+    purposes and in order to focus on allocation strategy, we did not
     include any site ID in this definition.}.
 \label{def:id}
 \end{Def}
@@ -83,14 +83,14 @@ elements identified by $p$ and $q$:
   $[12]$ and $[13]$ are valid choices for the new element.
 \item if $p=[14]$ and $q=[15]$, there is no room at this level. Since the model
   does not have further levels, the allocation function $alloc$ initiates a new
-  level. Then, it choses among this bunch of newly available identifiers:
+  level. Then, it chooses among this bunch of newly available identifiers:
   between $[14.0]$ and $[14.99]$.
 \end{asparaitem}
 
 \begin{figure}[h]
 \begin{center}
 \input{input/treeexample.tex}
-\caption{Underlying tree model of a variabled-size identifiers approaches.
+\caption{Underlying tree model of a variable-size identifiers sequence CRDT.
   Depth-1 contains four identifiers $[10]$, $[11]$, $[14]$ and $[15]$ labeling
   the elements $a$, $e$, $f$ and $g$ respectively. Also, depth-1 contains the
   bounds of the sequence $\langle [0], Begin \rangle$ and $\langle [99],End
@@ -105,64 +105,64 @@ elements identified by $p$ and $q$:
 \centering
 \begin{subfigure}[t]{0.47\textwidth}
   \includegraphics[width=\textwidth]{img/compliant.eps}
-  \caption{Experiment on a Wikipedia page with 12k lines mostly edited in the
-    end. The top figure shows the spectrum of the page (insertion date
-    associated with each line). The bottom figure shows the bit-length of the
-    identifier of each line using the Logoot approach with a $boundary$
-    strategy.}
+  \caption{A page of 12k lines mostly edited at
+    the end.}
   \label{im:posteonlyblue}
 \end{subfigure}
 \begin{subfigure}[t]{0.47\textwidth}
 \includegraphics[width=\textwidth]{img/motivating.eps}
-  \caption{Experiment on a Wikipedia page of 170 lines. The top figure shows
-    the spectrum of the page. The bottom figure shows the bit-length of the
-    identifier of each line using the Logoot approach with a $boundary$
-    strategy.}
+\caption{A page of 170 lines mostly edited at the beginning.}
 \label{im:didyouknowonlyblue}
 \end{subfigure}
+\caption{Experiments made on a Wikipedia pages. The top figure shows the
+  spectrum of the page (revision number of each line). The bottom figure shows
+  the bit-lenght of the identifier assigned to each line. The allocation
+  strategy is $boundary$ from the Logoot approach.}
 \end{figure*}
 
-\paragraph{Allocation strategies}
+\subsection{Allocation strategies}
 The Logoot paper~\cite{weiss2009logoot} already highlighted the importance of
 allocation strategies ($alloc$). Indeed, experiments concerned two strategies.
 \begin{inparaenum}[(1)]
-\item \emph{Random}: randomly chooses between the identifiers of the two
-  neighbours delivers poor performances. The identifiers quickly saturate the
-  space, resulting in the creation of new levels. As consequence, the size of
-  identifiers grows quickly.
-\item \emph{Boundary}: randomly chooses between the identifiers of the two
+\item \emph{Random}: randomly choosing between the identifiers of the two
+  neighbours. It delivers poor performance because the identifiers quickly
+  saturate the space, resulting in the creation of new levels. As consequence,
+  the size of identifiers grows quickly.
+\item \emph{Boundary}: randomly choosing between the identifiers of the two
   neighbours bounded by a $boundary$ maximum value. The strategy allocates the
   new identifiers closer to their preceding identifier. Of course, it works
-  well when the editing behaviour complies with this strategy.
+  well when the editions are performed right-to-left.
 \end{inparaenum}
 
-Figures~\ref{im:posteonlyblue} and~\ref{im:didyouknowonlyblue} show two
-Wikipedia pages. The top part gives the spectrum associated with the pages. A
-spectrum gives an overview of the editing behaviour associated with a page. The
-spectrum gives the insertion date associated with each line of a document.  As
-the left spectrum suggests, most of the insert operations situates the new
-elements in the end of the document i.e. the last lines of the page are more
-recent. On the opposite, the second spectrum shows that most of the insert
-operations situates the elements in the beginning of the document.  The bottom
+Figures~\ref{im:posteonlyblue} and~\ref{im:didyouknowonlyblue} show the editing
+behaviour of two Wikipedia pages. The top part shows the spectrum associated
+with the pages. A spectrum gives an overview of the editing behaviour
+associated with a page. The spectrum gives the revision number of each line of
+a document, i.e., the relative date of their insert operation.  As the left
+spectrum suggests, most of the insert operations situates the new elements at
+the end of the document, i.e., the last lines of the page are more recent. On
+the opposite, the second spectrum shows that most of the insert operations
+situates the newest elements at the beginning of the document.  The bottom
 figures associate the bit-length of the identifier of each line of the document
 using the \emph{boundary} strategy. In the first figure, we consider a page of
 $12k$ lines. Identifiers do not exceed $256$ bits and they are well spread
-between level $[1-4]$. It leads to a satisfying average of $169.7$ bits/id. On
+between levels $[1-4]$. It leads to a satisfying average of $169.7$ bits/id. On
 the contrary, the editing behaviour on the second document (see
-figure~\ref{im:didyouknowonlyblue}) that has only 170 lines does not comply
-with the considered \emph{boundary} strategy. In this case, we observe, on an
-existing document, the worst-case of linear growth of the size of identifiers.
-The average bit-length is $172.25$ bits/id over 5 levels.
+figure~\ref{im:didyouknowonlyblue}) that has only 170 lines does not fulfills
+the right-to-left editing behaviour assumed by the \emph{boundary} strategy. In
+this case, we observe, on an existing document, the worst-case of linear growth
+of the size of identifiers.  The average bit-length is $172.25$ bits/id over 5
+levels.
 
-\paragraph{Issues and motivations}
+\subsection{Issues and motivations}
 Most of existing CRDTs' allocation strategies make the assumption of
 right-to-left and top-to-bottom editing behaviour. This strong hypothesis
-allows better space management but other behaviours may lead to quick decrease
-in performances. Therefore, it makes the distributed collaborative editor
-unsafe.
+allows better space management but other behaviours may lead to a quick
+decrease in performance. Therefore, it makes the distributed collaborative
+editor unsafe.
 
 In order to build an efficient distributed collaborative editor based on a
-sequence CRDT, we need an adaptive allocation function $alloc$ i.e. an
+sequence CRDT, we need an adaptive allocation function $alloc$, i.e., an
 allocation strategy independent of an editing behaviour. \emph{The
   unpredictability of the editing behaviour makes the allocation of identifiers
   challenging. At any time, the CRDT knows what happened in the past and the
@@ -170,7 +170,7 @@ allocation strategy independent of an editing behaviour. \emph{The
   not impossible.}
 
 \begin{Def}[Problem statement]\ \\
-Let $\mathcal{D}$ a document on which $n$ insert operations have been
+Let $\mathcal{D}$ be a document on which $n$ insert operations have been
 performed.  Let $\mathcal{I}(\mathcal{D})= \{id |
 (\_,id)\in{\mathcal{D}}\}$. The function $alloc(id_p,id_q)$ should provide
 identifiers such as:
@@ -179,8 +179,8 @@ $\sum\limits_{id \in \mathcal{I}} { {log_2(id)}\over{n}}$ $< O(n)$
 \end{center}
 \end{Def}
 
-The problem statement concerns the allocation function $alloc$ which
-should have a sub-linear upper-bound in its space complexity. Such
-function would greatly improve the current state of art since the
-document does not require any additional costly protocol: the average
-size of identifiers being under an acceptable bound.
+The problem statement concerns the allocation function $alloc$ which should
+have a sub-linear upper-bound in its space complexity. Such function would
+greatly improve the current state of art since the document does not require
+any additional costly protocol: the average size of identifiers being under an
+acceptable bound.

@@ -1,7 +1,7 @@
 
 \begin{abstract}
   Distributed collaborative editing systems allow users to work distributed in
-  time, space and across organisations. Trending distributed collaborative
+  time, space and across organizations. Trending distributed collaborative
   editors such as Google Docs, Etherpad or Git have grown in popularity over
   the years. A new kind of distributed editors based on a family of distributed
   data structure replicated on several sites called Conflict-free Replicated
@@ -9,10 +9,10 @@
   that represents a distributed sequence of basic elements that can be lines,
   words or characters (sequence CRDT). The possible operations on this sequence
   are the insertion and the deletion of elements. Compared to the state of the
-  art, this approach is more decentralised and scales better in terms of the
+  art, this approach is more decentralized and better scales in terms of the
   number of participants. However, its space complexity is linear with respect
   to the total number of inserts and the insertion points in the document. This
-  makes the overall performances of such editors dependent on the editing
+  makes the overall performance of such editors dependent on the editing
   behaviour of users. This paper proposes and models \NAME{}, an adaptive
   allocation strategy for a sequence CRDT. \NAME{} achieves in the average a
   sub-linear spatial-complexity whatever is the editing behaviour. A series of

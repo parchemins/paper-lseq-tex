@@ -1,44 +1,42 @@
 \section{Introduction}
 
-%% to work in distributed in time space and across organization
-
 Distributed collaborative editing
 systems~\cite{Ellis:1989:CCG:67544.66963,ellis1991groupware,greenberg1994real}
 such as Google Docs, Etherpad or Git are now widely used and allow users to
-work distributed in time, space, and across organisations. A new kind of
+work distributed in time, space, and across organizations. A new kind of
 distributed editors~\cite{preguica2009commutative,weiss2007wooki} appeared
 based on Conflict-Free Replicated Data Types
 (CRDTs)~\cite{oster2006data,weiss2009logoot,shapiro2011conflict}. A CRDT is a
 distributed data type replicated over several
 sites~\cite{saito2005optimistic,saito2002replication}. A CRDT cannot implement
-any centralised data structure but for instance can implement a counter, a set,
+any centralized data structure but for instance can implement a counter, a set,
 a tree, etc. In this paper we consider a special family or CRDTs that implement
 a sequence of basic elements such as lines, words or characters that we call
 \emph{sequence CRDT}. For our purpose and as a first step, we only consider two
 basic operations on a sequence, the insert and the delete operations. Compared
-to the state of the art, editors based on sequence CRDTS are more decentralised
-and better scale. However, they have a linear space-complexity with respect to
+to the state of the art, editors based on sequence CRDTs are more decentralized
+and scale better. However, they have a linear space-complexity with respect to
 the number of insertions. Consequently, they heavily depend on the editing
 behaviour. Some editing scenarios lead to a permanent loss in performance.
 
 In order to preserve the total order on the elements of the sequence, a unique
 and immutable identifier is associated with each basic element of the structure
-(character, line or paragraph according to chosen granularity). This allows to
-distinguish two classes of sequence CRDTs:
+(character, line or paragraph according to the chosen granularity). This allows
+to distinguish two classes of sequence CRDTs:
 \begin{inparaenum}[(i)]
 \item Fixed size identifier (also called the tombstones class). This class
   includes WOOT~\cite{oster2006data}, WOOTO~\cite{weiss2007wooki},
   WOOTH~\cite{ahmed2011evaluating}, CT~\cite{grishchenko2010deep},
   RGA~\cite{roh2011replicated},~\cite{Yu2012stringwise}. In this class, a
-  tombtone replaces each suppressed element. Although it enjoys a fixed length
+  tombstone replaces each suppressed element. Although it enjoys a fixed length
   for identifiers and it has a space complexity which depends on the number of
   operations. For example, a document with an history of a million operations
-  and finally containing a single line can store as much as 499999
-  tombstones. Garbaging tombstones requires costly protocols in decentralised
+  and finally containing a single line can have as much as 499999
+  tombstones. Garbaging tombstones requires costly protocols in decentralized
   distributed systems.
 \item Variable-size identifiers. This class includes for example
   Logoot~\cite{weiss2009logoot}. It does not require tombstones, but its
-  identifiers can grow unboundedly. Consequently, although it does not require
+  identifiers can grow unbounded. Consequently, although it does not require
   garbage protocols, its space complexity remains till now linear with the
   number of insert operations. Thus, it is possible to have only a single
   element in the sequence having an identifier of length
@@ -48,12 +46,12 @@ distinguish two classes of sequence CRDTs:
 \end{inparaenum}
 
 In this paper, we propose a new approach, called \NAME{}, that belongs to the
-variable size identifier class of sequence CRDTs. Compared to the state of the
+variable-size identifiers class of sequence CRDTs. Compared to the state of the
 art, \NAME{} is an adaptive allocation strategy with a sub-linear upper-bound
 in its spatial complexity. We experimented \NAME{} on synthetic sequences and
 real documents. In both cases, \NAME{} outperforms existing approaches.
 
-The remainder of the paper is organised as
+The remainder of the paper is organized as
 follows. Section~\ref{sec:background} delineates the background on
 variable-size identifiers class of sequence CRDTs and motivates this
 work. Then, Section~\ref{sec:proposal} details \NAME{} and the three parameters
