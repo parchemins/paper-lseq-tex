@@ -3,7 +3,7 @@
 
 Popular distributed collaborative editors such as Google
 Docs~\cite{nichols1995high} rely on Operational Transformation approach
-(OT)~\cite{sun1998operational,sun1998achieving}.  OT-based and CRDT-based
+(OT) \cite{sun1998operational,sun1998achieving}.  OT-based and CRDT-based
 distributed editors follow the same global scheme of optimistic replication,
 i.e., generate operations without locking, broadcast to others replicates and
 re-execute. OT and CRDT mainly differ in their complexities:
@@ -20,10 +20,10 @@ re-execute. OT and CRDT mainly differ in their complexities:
   CRDTs by keeping $k$ small.
 \end{inparaenum}
 
-The tombstone class of sequence CRDT includes WOOT~\cite{oster2006data},
+The tombstone class of sequence CRDT includes WOOT \cite{oster2006data},
 WOOTO~\cite{weiss2007wooki}, WOOTH~\cite{ahmed2011evaluating},
 Treedoc~\cite{preguica2009commutative}, CT~\cite{grishchenko2010deep},
-RGA~\cite{roh2011replicated}, \cite{Yu2012stringwise}. In these approach,
+RGA \cite{roh2011replicated}, \cite{Yu2012stringwise}. In these approach,
 tombstones (or ``death certificates'') mark the deleted elements. They provide
 a simple solution to solve problems of concurrent delete. A clear advantage is
 to only require fixed-length identifiers, nonetheless the space complexity of

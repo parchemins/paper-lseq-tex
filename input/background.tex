@@ -135,24 +135,24 @@ allocation strategies ($alloc$). Indeed, experiments concerned two strategies.
 \end{inparaenum}
 
 Figures~\ref{im:posteonlyblue} and~\ref{im:didyouknowonlyblue} show the editing
-behaviour of two Wikipedia pages. The top part shows the spectrum associated
-with the pages. A spectrum gives an overview of the editing behaviour
-associated with a page. The spectrum gives the revision number of each line of
-a document, i.e., the relative date of their insert operation.  As the left
-spectrum suggests, most of the insert operations situates the new elements at
-the end of the document, i.e., the last lines of the page are more recent. On
-the opposite, the second spectrum shows that most of the insert operations
-situates the newest elements at the beginning of the document.  The bottom
-figures associate the bit-length of the identifier of each line of the document
-using the \emph{boundary} strategy. In the first figure, we consider a page of
-$12k$ lines. Identifiers do not exceed $256$ bits and they are well spread
-between levels $[1-4]$. It leads to a satisfying average of $169.7$ bits/id. On
-the contrary, the editing behaviour on the second document (see
-figure~\ref{im:didyouknowonlyblue}) that has only 170 lines does not fulfills
-the right-to-left editing behaviour assumed by the \emph{boundary} strategy. In
-this case, we observe, on an existing document, the worst-case of linear growth
-of the size of identifiers.  The average bit-length is $172.25$ bits/id over 5
-levels.
+behaviour and the bit-length of allocated identifiers on two Wikipedia
+pages. The top part shows the spectrum associated with the pages. A spectrum
+gives an overview of the editing behaviour associated with a page. It gives the
+revision number of each line of a document, i.e., the relative date of their
+insert operation.  As the left spectrum suggests, most of the insert operations
+situates the new elements at the end of the document, i.e., the last lines of
+the page are more recent. On the opposite, the second spectrum shows that most
+of the insert operations situates the newest elements at the beginning of the
+document.  The bottom figures associate the bit-length of the identifier of
+each line of the document using the \emph{boundary} strategy. In the first
+figure, we consider a page of $12k$ lines. Identifiers do not exceed $256$ bits
+and they are well spread between levels $[1-4]$. It leads to a satisfying
+average of $169.7$ bits/id. On the contrary, the editing behaviour on the
+second document (see figure~\ref{im:didyouknowonlyblue}) that has only 170
+lines does not fulfills the right-to-left editing behaviour assumed by the
+\emph{boundary} strategy. In this case, we observe, on an existing document,
+the worst-case of linear growth of the size of identifiers.  The average
+bit-length is $172.25$ bits/id over 5 levels.
 
 \subsection{Issues and motivations}
 Most of existing CRDTs' allocation strategies make the assumption of
