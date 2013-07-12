@@ -51,7 +51,8 @@ choice with base doubling (\textbf{\NAME}).
 \begin{center}
 \small
 \input{input/dimlogexperiment.tex}
-\caption{Simple \emph{boundary+} setup with $base=2^{10}$ and $boundary=10$}
+\caption{Simple \emph{boundary+} setup (\textbf{B}) with $base=2^{10}$ and
+  $boundary=10$}
 \label{fig:dimlogexperiment}
 \end{center}
 \end{figure}
@@ -136,7 +137,8 @@ choice with base doubling (\textbf{\NAME}).
 \small
 \begin{center}
 \input{input/doubleexperiment.tex}
-\caption{Base doubling setup \textbf{D} ($base=2^{4+id.size}$, $boundary=10$)}
+\caption{Base doubling setup (\textbf{D}) ($base=2^{4+id.size}$,
+  $boundary=10$)}
 \label{fig:doubleexperiment}
 \end{center}
 \end{figure}
@@ -233,9 +235,9 @@ choice with base doubling (\textbf{\NAME}).
 \small
 \begin{center}
 \input{input/lseqexperiment.tex}
-\caption{Round-Robin (\textbf{RR}) alternation of strategies \emph{boundary+}
-  and \emph{boundary--} ($base=2^{10}$; $boundary=10$)}
-\label{fig:roundrobinexperiment}
+\caption{Random alternation (\textbf{\NAME{}}) of strategies \emph{boundary+}
+  and \emph{boundary--} ($base=2^{4+id.size}$; $boundary=10$)}
+\label{fig:lseqexperiment}
 \end{center}
 \end{figure}
 
@@ -341,7 +343,7 @@ and end editing spectrum. We compare the following two setups:
   $bit/id$ for  \textbf{L} and \textbf{\NAME{}$^\approx$} respectively.}
 \label{im:didyouknow}
 \end{subfigure}
-\caption{The top spectrum reflect the editing behaviour performed on Wikipedia
+\caption{The top spectrums reflect the editing behaviour performed on Wikipedia
   pages. The bottom figures shows the identifier bit-length assigned to each
   line. Two configurations: Logoot (\textbf{L}) and Round-Robin with base
   doubling (\textbf{\NAME{}}$^\approx$).}
@@ -380,7 +382,7 @@ and end editing spectrum. We compare the following two setups:
   some spaces could have been wasted.  These observations confirm the results
   of section~\ref{ssec:components}.
   
-  \item[Reasons:] \textbf{\NAME{}}$^\approx$ does not favor any editing
+  \item[Reasons:] \textbf{\NAME{}}$^\approx$ does not favour any editing
     behaviour thanks to its allocation strategies. On the opposite, \textbf{L}
     uses an allocation strategy designed to support end editing, thus, when
     the antagonist behaviour arises, the identifiers size grow very fast.

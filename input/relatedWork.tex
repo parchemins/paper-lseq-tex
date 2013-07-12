@@ -10,7 +10,7 @@ re-execute. OT and CRDT mainly differ in their complexities:
 \begin{inparaenum}[(i)]
 \item OT-based editors have constant-time complexity at generation time and a
   complexity of $O(|H^{2}|)$ at re-execution time where $H$ is the log of
-  operations. Performance of OT closely depend on the number of concurrent
+  operations. Performance of OT closely depends on the number of concurrent
   operations present in the system.
 \item LSEQ sequence CRDT has a complexity of $O(k)$ for generation time and
   $O(k*log(n))$ for re-execution time where $n$ is the number of elements

@@ -71,7 +71,7 @@ allocates a position near the preceding identifier $p$, the \emph{boundary--}
 strategy allocates a position near the succeeding identifier $q$. Indeed,
 \emph{boundary--} starts from position $q$ and subtracts a boundary value
 instead of starting from position $p$ and adding a boundary value. The
-arithmetic operation explains the names given to theses
+arithmetic operation explains the names given to these
 strategies. Figure~\ref{img:positionchoice} shows the results obtained by these
 two strategies with the same neighbours and random value. The left figure shows
 the \emph{boundary+} strategy which ends up with $[50.11]$ while the right
@@ -99,7 +99,7 @@ just like \emph{boundary+}.
 \subsection{Strategy choice}
 
 Current variable-size sequence CRDTs rely on a unique strategy that is not
-versatile in the sense that it does not adapt to every editing behaviour. As it
+versatile in the sense that it does not adapt to all editing behaviour. As it
 is impossible to know \emph{a priori} the editing behaviour and then, obtain
 the best strategy for every sequence, \NAME{} randomly alternates between
 \emph{boundary+} and \emph{boundary--}. Thus, when \NAME{} increases the
@@ -133,8 +133,8 @@ empty. Three parts compose the algorithm.
     depth. Line~\ref{line:base} refers to $base(cpt)$. It is a very simple
     function that computes the base value at a given depth ($cpt$). Thus,
     $0_{base(cpt)}$ means that the binary representation of $0$ uses
-    $log_2(base(cpt))$ bits. Consequently, the add and subtract operations do
-    not require additional computation compared to regular arithmetic
+    $log_2(base(cpt))$ bits. Consequently, the add and the subtract operations
+    do not require additional computation compared to regular arithmetic
     operations.
 \end{inparaenum}
 
