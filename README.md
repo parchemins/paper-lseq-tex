@@ -4,8 +4,8 @@
 editing; distributed documents; document authoring tools and systems; real-time
 editing</i>
 
-<i> Authors: Brice Nédelec, Pascal Molli, Achour Mostefaoui, Emmanuel
-Desmontils </i>
+<i>Authors: Brice Nédelec, Pascal Molli, Achour Mostefaoui, Emmanuel
+Desmontils</i>
 
 Distributed collaborative editing systems allow users to work distributed in
 time, space and across organizations. Trending distributed collaborative
@@ -29,8 +29,8 @@ showing that it outperforms existing approaches.
 ## Available at
 
 <ul>
-  <li> [HAL] https://hal.archives-ouvertes.fr/hal-00921633
-  <li> [ACM Digital Library](http://dl.acm.org/citation.cfm?id=2494278&dl=ACM&coll=DL&CFID=492734669&CFTOKEN=59297952)
+  <li> [HAL](https://hal.archives-ouvertes.fr/hal-00921633)</li>
+  <li> [ACM Digital Library](http://dl.acm.org/citation.cfm?id=2494278&dl=ACM&coll=DL&CFID=492734669&CFTOKEN=59297952) </li>
 </ul>
 
 ## Bibtex
