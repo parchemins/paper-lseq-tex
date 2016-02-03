@@ -33,7 +33,7 @@ showing that it outperforms existing approaches.
   <li> [ACM Digital Library](http://dl.acm.org/citation.cfm?id=2494278&dl=ACM&coll=DL&CFID=492734669&CFTOKEN=59297952) </li>
 </ul>
 
-## Bibtex
+## BibTeX
 
 ```
 @inproceedings{Nedelec:2013:LAS:2494266.2494278,
@@ -58,3 +58,8 @@ showing that it outperforms existing approaches.
               systems, real-time editing}
 } 
 ```
+
+## Acknowledgments
+
+This work was partially funded by the French ANR project ConcoRDanT
+([ANR-10-BLAN-0208](http://www.agence-nationale-recherche.fr/?Projet=ANR-10-BLAN-0208)).
