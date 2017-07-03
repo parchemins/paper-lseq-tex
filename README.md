@@ -1,4 +1,4 @@
-#LSEQ: an Adaptive Structure for Sequences in Distributed Collaborative Editing
+# LSEQ: an Adaptive Structure for Sequences in Distributed Collaborative Editing
 
 <i>Keywords: conflict-free replicated data type; distributed collaborative
 editing; distributed documents; document authoring tools and systems; real-time
